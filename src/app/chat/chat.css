@@ -1,0 +1,380 @@
+/* Minimal chat styles */
+.chat-layout {
+    min-height: 100vh;
+    background: #fff;
+}
+
+/* Scrollbars and general layout tweaks */
+* {
+    box-sizing: border-box;
+}
+
+.chat-container {
+    height: 100vh;
+    display: flex;
+}
+
+.chat-sidebar {
+    width: 320px;
+    border-right: 1px solid #eef2f6;
+    background: #6c5ce7;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.search-input {
+    margin: 8px 12px;
+    padding: 8px 10px;
+    border-radius: 20px;
+    border: 1px solid #e6eef6;
+    background: #6c5ce7;
+    color: white;
+}
+
+/** Focus styles for search input */
+.search-input:focus {
+    outline: none;
+    border-color: #4c51bf;
+    background: #170c5f73;
+    color: white;
+}
+
+.contacts-list {
+    overflow-y: auto;
+    padding: 8px 10px 24px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.contact-item:hover {
+    background: rgba(255,255,255,0.06);
+    color: #ffffff;
+}
+
+.contact-main {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #e6eefc;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: #374151
+}
+
+.contact-meta {
+    display: flex;
+    flex-direction: column
+}
+
+.contact-name {
+    font-weight: 700;
+    font-size: 14px
+}
+
+.contact-last {
+    color: #6b7280;
+    font-size: 12px
+}
+
+.contact-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #9ca3af
+}
+
+.unread-badge {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #ff6b6b; /* subtle accent while keeping palette */
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.unread-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #10b981
+}
+
+.online-dot {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #10b981;
+    border: 2px solid #ffffff;
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e6eef6;
+    background: #fff
+}
+
+.chat-header .title {
+    font-weight: 700;
+    color: #111827;
+}
+
+.chat-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 10px
+}
+
+.messages-area {
+    flex: 1;
+    background-color: #374151;
+    /* subtle pattern */
+    background-image: radial-gradient(circle at 10px 10px, rgba(255, 255, 255, 0.08) 2px, transparent 3px), radial-gradient(circle at 20px 20px, rgba(255, 255, 255, 0.06) 2px, transparent 3px);
+    background-size: 60px 60px;
+    padding: 28px 32px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    /* custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+    overflow-y: scroll;
+
+    height: 50vh;
+
+    /* Webkit scrollbar (use proper selectors, not SCSS-style & syntax) */
+}
+
+/* Webkit scrollbar selectors must be top-level rules */
+.messages-area::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages-area::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.date-badge {
+    align-self: center;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: #6b7280;
+    font-size: 12px
+}
+
+.message-bubble {
+    max-width: 72%;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.3
+}
+
+.message-row {
+    display: flex;
+    gap: 8px;
+    margin: 6px 0
+}
+
+.message-row.mine {
+    justify-content: flex-end
+}
+
+.message-row.other {
+    justify-content: flex-start
+}
+
+.message-bubble.mine {
+    background: #4ade80;
+    color: #062e0b;
+    border-bottom-right-radius: 4px
+}
+
+.message-bubble.other {
+    background: #ffffff;
+    color: #111827;
+    border-bottom-left-radius: 4px
+}
+
+.message-time {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 6px
+}
+
+.input-row {
+    padding: 14px;
+    border-top: 1px solid #e6eef6;
+    background: #fff;
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.input-field {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 999px;
+    border: 1px solid #111827;
+    background: #f8fafc
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #4c51bf;
+    background: #111827ce;
+    color: white;
+
+    /** subtle shadow */
+    background-image: radial-gradient(circle at 20px 20px, rgba(255, 255, 255, 0.2) 0%, transparent 80%) radial-gradient(circle at 20px 20px, rgba(255, 255, 255, 0.2) 0%, transparent 80%);
+}
+
+.send-btn {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #6c5ce7;
+    color: white;
+    border: none
+}
+
+.sidebar_settings {
+    margin-top: auto;
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.sidebar_settings button {
+    border: none;
+    background: transparent;
+    color: white;
+    text-align: left;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer
+}
+
+/* Enhanced sidebar visuals */
+.sidebar-header {
+    color: white;
+    padding: 12px 16px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.menu-btn {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.sidebar-title { 
+    color: white; 
+    font-size: 16px; 
+}
+
+.new-badge {
+    font-size: 12px;
+    color: #f3eefc;
+    background: rgba(255,255,255,0.06);
+    padding: 4px 8px;
+    border-radius: 999px;
+}
+
+.avatar img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-fallback {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #e6eefc;
+    font-weight: 700;
+    color: #374151;
+}
+
+.contact-item.active {
+    background: rgba(255,255,255,0.12);
+    color: white;
+}
+
+.contact-item.active .contact-name { color: white; }
+.contact-item.active .contact-last { color: #e6e6ff }
+
+.settings-btn {
+    border: none;
+    background: transparent;
+    color: white;
+    text-align: left;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
