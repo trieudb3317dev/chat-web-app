@@ -378,3 +378,92 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
+.settings-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-content {
+    width: 720px;
+    max-width: 95%;
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.settings-tabs {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #e6eef6;
+    margin-bottom: 20px;
+    color: #4c51bf;
+}
+
+.settings-profile-section {
+    display: flex;
+    gap: 40px;
+}
+
+.settings-profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 12px;
+}
+
+.settings-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.settings-profile-form div label {
+    font-size: 12px;
+    color: #000;
+}
+
+.settings-profile-form div input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #e6eef6;
+    background: #f8fafc;
+    color: #111827;
+}
+
+.settings-profile-avatar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.settings-profile-avatar-label {
+    font-size: 12px;
+    color: #000;
+}
+
+.settings-profile-avatar-preview {
+    width: 160px;
+    height: 160px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f2f2f2;
+}
+
+.settings-profile-action {
+    display: flex;
+    gap: 12px;
+}
+
+.settings-profile-action button {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #6c5ce7;
+    color: white;
+}

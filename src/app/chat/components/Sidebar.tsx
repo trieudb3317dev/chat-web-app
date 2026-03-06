@@ -9,6 +9,7 @@ export default function Sidebar({
   onSelect,
   unreadCounts,
   setContactSelected,
+  onOpenSettings,
 }: {
   contacts: {
     id: number;
@@ -35,6 +36,7 @@ export default function Sidebar({
       status?: string;
     } | null>
   >;
+  onOpenSettings?: () => void;
 }) {
   const { signOut } = useAuth();
   return (
@@ -92,7 +94,12 @@ export default function Sidebar({
       </div>
 
       <div className="sidebar_settings">
-        <button className="settings-btn">⚙️ Settings</button>
+        <button
+          className="settings-btn"
+          onClick={() => onOpenSettings && onOpenSettings()}
+        >
+          ⚙️ Settings
+        </button>
         <button className="settings-btn" onClick={signOut}>
           🚪 Logout
         </button>

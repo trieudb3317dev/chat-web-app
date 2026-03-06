@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const router = useRouter();
   const { signUp, loading, error } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,6 +17,7 @@ export default function SignUp() {
     setLocalError(null);
     try {
       await signUp(name.trim(), email.trim(), password);
+      router.push("/activate");
     } catch (err: any) {
       setLocalError(err?.detail ?? "Failed to sign up");
     }

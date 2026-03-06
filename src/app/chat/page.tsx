@@ -4,6 +4,7 @@ import { useChatWebSocket } from "@/hooks/useChatWebSocket";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import "./chat.css";
 import Sidebar from "./components/Sidebar";
+import SettingsModal from "./components/SettingsModal";
 import Conversation from "./components/Conversation";
 import { useAuth } from "@/context/AuthContext";
 import { getFriendsList } from "@/apis/client";
@@ -27,6 +28,7 @@ export default function ChatPage({ userId }: { userId: number }) {
     avatar?: any;
     status?: string;
   } | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -113,7 +115,10 @@ export default function ChatPage({ userId }: { userId: number }) {
         }}
         unreadCounts={unreadCounts}
         setContactSelected={setContactSelected}
+        onOpenSettings={() => setSettingsOpen(true)}
       />
+
+      {settingsOpen && <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />}
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
         {activeChatWith != null ? (

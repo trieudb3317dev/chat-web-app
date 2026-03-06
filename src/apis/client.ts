@@ -59,6 +59,15 @@ export async function registerUser(payload: {
   });
 }
 
+export async function activateUser(payload: { token: string }) {
+  return apiFetch(
+    `/users/activate?token=${encodeURIComponent(payload.token)}`,
+    {
+      method: "POST",
+    },
+  );
+}
+
 export async function loginUser(payload: {
   username: string;
   password: string;
@@ -86,6 +95,32 @@ export async function updateProfile(payload: any) {
     method: "PUT",
     body: JSON.stringify(payload),
   });
+}
+
+export async function uploadAvatar(file: File) {
+  const url = `${API_BASE}/users/upload-avatar`;
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch(url, {
+    method: "POST",
+    credentials: "include",
+    body: form,
+  });
+  const text = await res.text();
+  let data: any = null;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch (e) {
+    data = { message: text };
+  }
+  if (!res.ok) {
+    const msg = data?.message || res.statusText || "Upload failed";
+    const err: any = new Error(msg);
+    err.status = res.status;
+    err.body = data;
+    throw err;
+  }
+  return data;
 }
 
 export async function resetPassword(payload: any) {
@@ -138,6 +173,7 @@ export default {
   me,
   refreshToken,
   updateProfile,
+  uploadAvatar,
   resetPassword,
   changePassword,
   getFriendsList,
