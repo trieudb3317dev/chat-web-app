@@ -12,7 +12,7 @@ import { getFriendsList } from "@/apis/client";
 export default function ChatPage({ userId }: { userId: number }) {
   const { user } = useAuth();
   const wsId = user?.id ?? userId ?? undefined;
-  const url = wsId ? `ws://localhost:8000/ws/${wsId}` : undefined;
+  const url = wsId ? `${process.env.NEXT_PUBLIC_WS_URL}/ws/${wsId}` : undefined;
   // messages state is provided by the websocket hook (includes history updates)
   const [text, setText] = useState("");
   const [activeChatWith, setActiveChatWith] = useState<number | null>(null);
