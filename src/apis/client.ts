@@ -165,6 +165,11 @@ export async function getChatWith(
   return apiFetch(`/chats/with/${id}${qs}`, { method: "GET" });
 }
 
+// request backend to build google oauth url (backend may include PKCE state)
+export async function getGoogleLoginUrl() {
+  return apiFetch(`/login/google`, { method: "GET" });
+}
+
 export default {
   apiFetch,
   registerUser,
@@ -178,4 +183,5 @@ export default {
   changePassword,
   getFriendsList,
   getChatWith,
+  getGoogleLoginUrl,
 };

@@ -100,7 +100,7 @@
 
 .label {
   font-size: 12px;
-  color: #6b7280;
+  color: #111827;
 }
 
 input[type="email"],
@@ -111,6 +111,7 @@ input[type="text"] {
   border: 1px solid #e6e8ee;
   background: #f8fafc;
   outline: none;
+  color: #111827;
 }
 
 .btn.primary {

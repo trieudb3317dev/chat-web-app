@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import api from "@/apis/client";
 
 export default function SignIn() {
   const { signIn, loading, error } = useAuth();
@@ -21,8 +22,31 @@ export default function SignIn() {
   };
 
   const onGoogle = () => {
-    // placeholder for OAuth flow
-    alert("Google sign-in not wired in demo");
+    // Ask backend to build the Google OAuth URL (backend may include PKCE state).
+    (async () => {
+      try {
+        const data = await api.getGoogleLoginUrl();
+        const url = data?.url || data?.auth_url || data?.redirect || null;
+        if (!url) throw new Error("No url from backend");
+
+        // Open a popup and wait for the backend+frontend callback to postMessage back
+        const w = window.open(url, "google_oauth", "width=520,height=700");
+        const handle = (e: MessageEvent) => {
+          // accept messages from our origin only
+          if (e.origin !== window.location.origin) return;
+          if (e.data?.type === "oauth" && e.data?.status) {
+            window.removeEventListener("message", handle);
+            if (w) w.close();
+            // refresh auth state (AuthContext should handle fetching /me)
+            window.location.reload();
+          }
+        };
+        window.addEventListener("message", handle);
+      } catch (err) {
+        console.error("Failed to start Google login", err);
+        alert("Failed to start Google login");
+      }
+    })();
   };
 
   return (

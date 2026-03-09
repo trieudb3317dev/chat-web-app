@@ -19,7 +19,11 @@ export default function ActivateComponent({ token }: { token: string | null }) {
   return (
     <div style={{ padding: 20 }} className="activate-card">
       <h1 className="activate-title">Activate Your Account</h1>
-      <button className="activate-button" onClick={onActivate} disabled={!token}>
+      <button
+        className="activate-button"
+        onClick={onActivate}
+        disabled={!token}
+      >
         Activate User
       </button>
     </div>
