@@ -152,6 +152,87 @@ export async function getFriendsList(params?: {
   return apiFetch(`/friends/list${qs}`, { method: "GET" });
 }
 
+export async function getUnfriendedList(params?: {
+  page?: number;
+  per_page?: number;
+  q?: string;
+}) {
+  const qparts: string[] = [];
+  if (params?.page)
+    qparts.push(`page=${encodeURIComponent(String(params.page))}`);
+  if (params?.per_page)
+    qparts.push(`per_page=${encodeURIComponent(String(params.per_page))}`);
+  if (params?.q) qparts.push(`q=${encodeURIComponent(params.q)}`);
+  const qs = qparts.length ? `?${qparts.join("&")}` : "";
+  return apiFetch(`/friends/unfriended${qs}`, { method: "GET" });
+}
+
+export async function addFriend(payload: { friend_id: number | string }) {
+  return apiFetch(`/friends/add`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function removeFriend(payload: { friend_id: number | string }) {
+  return apiFetch(`/friends/remove`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function sendChatImage(payload: {
+  chat_with_id: number | string;
+  file: File;
+}) {
+  const url = `${API_BASE}/chats/send-image`;
+  const form = new FormData();
+  form.append("chat_with_id", String(payload.chat_with_id));
+  form.append("file", payload.file);
+  const res = await fetch(url, {
+    method: "POST",
+    credentials: "include",
+    body: form,
+  });
+  const text = await res.text();
+  let data: any = null;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch (e) {
+    data = { message: text };
+  }
+  if (!res.ok) {
+    const msg = data?.message || res.statusText || "Request failed";
+    const err: any = new Error(msg);
+    err.status = res.status;
+    err.body = data;
+    throw err;
+  }
+  return data;
+}
+
+export async function getFriendRequests(params?: {
+  page?: number;
+  per_page?: number;
+  q?: string;
+}) {
+  const qparts: string[] = [];
+  if (params?.page)
+    qparts.push(`page=${encodeURIComponent(String(params.page))}`);
+  if (params?.per_page)
+    qparts.push(`per_page=${encodeURIComponent(String(params.per_page))}`);
+  if (params?.q) qparts.push(`q=${encodeURIComponent(params.q)}`);
+  const qs = qparts.length ? `?${qparts.join("&")}` : "";
+  return apiFetch(`/friends/requests${qs}`, { method: "GET" });
+}
+
+export async function acceptFriend(payload: { friend_id: number | string }) {
+  return apiFetch(`/friends/accept`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
 export async function getChatWith(
   id: string | number,
   params?: { page?: number; per_page?: number },
@@ -182,6 +263,12 @@ export default {
   resetPassword,
   changePassword,
   getFriendsList,
+  getUnfriendedList,
+  getFriendRequests,
   getChatWith,
   getGoogleLoginUrl,
+  addFriend,
+  removeFriend,
+  sendChatImage,
+  acceptFriend,
 };
