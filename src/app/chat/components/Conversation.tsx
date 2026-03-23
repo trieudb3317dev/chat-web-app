@@ -6,6 +6,7 @@ import { on } from "events";
 import { IncomingMessage } from "@/hooks/useChatWebSocket";
 import { useAuth } from "@/context/AuthContext";
 import { removeFriend, sendChatImage } from "@/apis/client";
+import Image from "next/image";
 
 export default function Conversation({
   messages,
@@ -50,8 +51,22 @@ export default function Conversation({
       <div className="chat-header">
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div className="avatar">
-            {contactSelected &&
-              (contactSelected.full_name || contactSelected.username || "?")[0]}
+            {contactSelected?.avatar ? (
+              <Image
+                src={contactSelected.avatar}
+                alt="Avatar"
+                width={40}
+                height={40}
+                style={{ borderRadius: "50%" }}
+              />
+            ) : (
+              <div className="avatar-placeholder">
+                {contactSelected &&
+                  (contactSelected.full_name ||
+                    contactSelected.username ||
+                    "?")[0]}
+              </div>
+            )}
           </div>
           <div>
             <div className="title">
