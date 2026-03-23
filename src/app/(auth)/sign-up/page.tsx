@@ -17,7 +17,7 @@ export default function SignUp() {
     setLocalError(null);
     try {
       await signUp(name.trim(), email.trim(), password);
-      router.push("/activate");
+      router.push("/sign-in");
     } catch (err: any) {
       setLocalError(err?.detail ?? "Failed to sign up");
     }
